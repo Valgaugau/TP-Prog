@@ -10,6 +10,13 @@ void allEvens(Array& evens, Array& array, int evenSize, int arraySize)
 
     // your code
 
+    for(int i = 0; i < arraySize; i++){
+        if(array[i] % 2 == 0){
+            evens[evenSize] = array[i];
+            evenSize++;
+        }
+    }
+
     return;
 }
 

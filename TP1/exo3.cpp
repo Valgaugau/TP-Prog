@@ -11,6 +11,14 @@ int search(int value, Array& toSort, int size)
 
     // your code
     // check the last cell and if it does not correspond
+
+    int i = size - 1;
+
+    while(i >= 0 && toSort[i] != value){
+        i--;
+    }
+
+    return_and_display(i);
     // then consider a smaller array when recalling search
 }
 

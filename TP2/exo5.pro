@@ -12,7 +12,6 @@ TARGET = Algorithm_TD1_exo5
 TEMPLATE = app
 CONFIG += c++11
 
-QMAKE_CXXFLAGS += -std=c++11
 SOURCES += \
 		exo5.cpp \
 		../lib/mainwindow.cpp \

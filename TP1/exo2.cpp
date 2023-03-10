@@ -10,6 +10,22 @@ int fibonacci(int value)
 
     // your code
 
+        if(value <= 1){
+            return_and_display(value);
+        }
+
+        int a = 0;
+        int b = 1;
+        int c;
+
+        for(int i = 2; i <= value; i++){
+            c = a + b;
+            a = b;
+            b = c;
+        }
+
+        return_and_display(b);
+
     return_and_display(value);
 }
 

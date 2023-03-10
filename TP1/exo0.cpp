@@ -1,4 +1,4 @@
-#include "tp1.h"
+#include "tp1.tex"
 #include <QApplication>
 #include <time.h>
 
