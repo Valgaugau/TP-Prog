@@ -140,35 +140,6 @@ void stocke(DynaTableau* tableau, int n, int valeur)
     tableau->donnees[n-1] = valeur;
 }
 
-//void pousse_file(DynaTableau* liste, int valeur)
-void pousse_file(Liste* liste, int valeur)
-{
-    if(liste->premier == nullptr) {
-        liste->premier = new Noeud {valeur, nullptr};
-        return;
-    }
-    Noeud* temp = liste->premier;
-    while(temp->suivant != nullptr) {
-        temp = temp->suivant;
-    }
-    temp->suivant = new Noeud {valeur, nullptr};
-}
-
-//int retire_file(Liste* liste)
-
-int retire_file(Liste* liste)
-{
-    int val_ret = 0;
-    if (liste != nullptr)
-    {
-        Noeud* temp = liste->premier->suivant;
-        val_ret = liste->premier->donnee;
-        free(liste), liste->premier = nullptr;
-        liste->premier = temp;
-    }
-    return val_ret;
-}
-
 //void pousse_pile(DynaTableau* liste, int valeur)
 void pousse_pile(DynaTableau* tableau, int valeur)
 {
@@ -198,6 +169,35 @@ int retire_pile(DynaTableau* tableau)
     }
     return val_ret;
     return 0;
+}
+
+//void pousse_file(DynaTableau* liste, int valeur)
+void pousse_file(Liste* liste, int valeur)
+{
+    if(liste->premier == nullptr) {
+        liste->premier = new Noeud {valeur, nullptr};
+        return;
+    }
+    Noeud* temp = liste->premier;
+    while(temp->suivant != nullptr) {
+        temp = temp->suivant;
+    }
+    temp->suivant = new Noeud {valeur, nullptr};
+}
+
+//int retire_file(Liste* liste)
+
+int retire_file(Liste* liste)
+{
+    int val_ret = 0;
+    if (liste != nullptr)
+    {
+        Noeud* temp = liste->premier->suivant;
+        val_ret = liste->premier->donnee;
+        free(liste), liste->premier = nullptr;
+        liste->premier = temp;
+    }
+    return val_ret;
 }
 
 

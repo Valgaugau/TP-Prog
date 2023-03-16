@@ -10,23 +10,17 @@ int fibonacci(int value)
 
     // your code
 
-        if(value <= 1){
-            return_and_display(value);
-        }
+    if (value == 0) {
+        return 0;
+    }
 
-        int a = 0;
-        int b = 1;
-        int c;
+    if (value == 1) {
+        return 1;
+    }
 
-        for(int i = 2; i <= value; i++){
-            c = a + b;
-            a = b;
-            b = c;
-        }
+    return_and_display(fibonacci(value - 2) + fibonacci(value - 1));
 
-        return_and_display(b);
-
-    return_and_display(value);
+    //return_and_display(value);
 }
 
 int main(int argc, char *argv[])

@@ -4,22 +4,23 @@
 
 #define return_and_display(result) return _.store(result);
 
-
 int search(int value, Array& toSort, int size)
 {
     Context _("search", value, size); // do not care about this, it allow the display of call stack
 
     // your code
     // check the last cell and if it does not correspond
-
-    int i = size - 1;
-
-    while(i >= 0 && toSort[i] != value){
-        i--;
+    if (size == 0) {
+        return -1;
     }
 
-    return_and_display(i);
+    if (toSort[size-1] == value) {
+        return_and_display(size-1);
+    }
     // then consider a smaller array when recalling search
+    else {
+        return_and_display(search(value, toSort, size-1));
+    }
 }
 
 int main(int argc, char *argv[])
