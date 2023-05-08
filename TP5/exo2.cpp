@@ -2,6 +2,7 @@
 #include <QString>
 #include <time.h>
 #include <stdio.h>
+#include <iostream>
 #include <string>
 
 #include <tp5.h>
@@ -23,7 +24,13 @@ std::vector<string> TP5::names(
 unsigned long int hash(string key)
 {
     // return an unique hash id from key
-    return 0;
+    unsigned long int hash = 0;
+
+    for (size_t i = 0; i < key.size(); i++) {
+        hash += key[i] * std::pow(128, i);
+    }
+
+    return hash;
 }
 
 struct MapNode : public BinaryTree
@@ -52,7 +59,19 @@ struct MapNode : public BinaryTree
      */
     void insertNode(MapNode* node)
     {
-
+        if (node->key_hash < key_hash) {
+                    if (left == nullptr) {
+                        left = node;
+                    } else {
+                        left->insertNode(node);
+                    }
+                } else {
+                    if (right == nullptr) {
+                        right = node;
+                    } else {
+                        right->insertNode(node);
+                    }
+                }
     }
 
     void insertNode(string key, int value)
@@ -79,7 +98,12 @@ struct Map
      */
     void insert(string key, int value)
     {
-
+        MapNode* node = new MapNode(key, value);
+               if (root == nullptr) {
+                   root = node;
+               } else {
+                   root->insertNode(node);
+               }
     }
 
     /**
@@ -89,7 +113,20 @@ struct Map
      */
     int get(string key)
     {
-        return -1;
+        unsigned long int key_hash = hash(key);
+            MapNode* current_node = root;
+
+            while (current_node != nullptr) {
+                if (current_node->key_hash == key_hash) {
+                    return current_node->value;
+                } else if (current_node->key_hash > key_hash) {
+                    current_node = current_node->left;
+                } else {
+                    current_node = current_node->right;
+                }
+            }
+
+            return 0;
     }
 
     MapNode* root;
@@ -99,7 +136,8 @@ struct Map
 int main(int argc, char *argv[])
 {
     srand(time(NULL));
-	Map map;
+    Map map;
+    std::vector<std::string> inserted;
 
     map.insert("Yolo", 20);
     for (std::string& name : TP5::names)
@@ -107,6 +145,7 @@ int main(int argc, char *argv[])
         if (rand() % 3 == 0)
         {
             map.insert(name, rand() % 21);
+            inserted.push_back(name);
         }
     }
 
@@ -117,6 +156,12 @@ int main(int argc, char *argv[])
     printf("map[\"Yolo\"]=%d\n", map.get("Yolo"));
     printf("map[\"Tanguy\"]=%d\n", map.get("Tanguy"));
 
+    printf("\n");
+    for (size_t i=0; i<inserted.size()/2; i++)
+        printf("map[\"%s\"]=%d\n", inserted[i].c_str(), map.get(inserted[i]));
+
+
+    std::cout.flush();
 
     QApplication a(argc, argv);
     MainWindow::instruction_duration = 200;
